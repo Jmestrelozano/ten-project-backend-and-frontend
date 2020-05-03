@@ -19,29 +19,27 @@ function validarEmail() {
 }
 
 function enviarDatos(e) {
+    let usuario = document.querySelector("#username").value;
+    let contraseña = document.querySelector("input[type='password']").value;
+    let correo = document.querySelector("input[type='email']").value;
+    console.log(usuario, contraseña, correo)
+    let url = 'https://bloggea.herokuapp.com/user/register';
+    let data = {
+        username: usuario,
+        password: contraseña,
+        email: correo
+    };
+    console.log(data)
+    fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(data => console.log("info", data));
     if (validarEmail() && confirm("deseas enviar")) {
-
-        let usuario = document.querySelector("#username").value;
-        let contraseña = document.querySelector("input[type='password']").value;
-        let correo = document.querySelector("input[type='email']").value;
-        console.log(usuario, contraseña, correo)
-        let url = 'https://bloggea.herokuapp.com/user/register';
-        let data = {
-            username: usuario,
-            password: contraseña,
-            email: correo
-        };
-        console.log(data)
-        fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(res => res.json())
-            .catch(error => console.error('Error:', error))
-            .then(data => console.log("info", data));
-
         return true;
 
     } else {

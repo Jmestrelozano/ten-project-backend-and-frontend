@@ -4,7 +4,16 @@ let lista = document.getElementById("lista-notas");
 form.addEventListener("submit", enviarDatos);
 lista.addEventListener("click", eliminarDatos)
 
+
+
 function enviarDatos() {
+    /*localstorage*/
+    let verLocal = localStorage.getItem("Data")
+    let mostrar = JSON.parse(verLocal)
+    console.log(mostrar)
+    let id = mostrar[0]._id;
+    console.log(id)
+        /*envio de datos*/
     let campoTexto = document.querySelector("#mytextarea").value;
 
     let div = document.createElement("div")
@@ -15,12 +24,34 @@ function enviarDatos() {
     div.appendChild(h2)
     div.appendChild(btnBorrar)
     div.appendChild(btnActualizar)
+    h2.id = ("titulo")
     h2.classList = ("act")
     div.classList = ("content")
     btnBorrar.id = ("borrar-dato")
     btnBorrar.classList = ("fas fa-times icono")
     btnActualizar.classList = ("fas fa-redo-alt icono")
     h2.innerHTML += campoTexto
+
+    let titulo = document.querySelector("#titulo").textContent;
+    console.log(titulo)
+
+    let url = "https://bloggea.herokuapp.com/post/createPost/"
+    fetch(url + id, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json;charset=utf-8",
+            },
+            body: JSON.stringify({
+                title: titulo,
+                content: campoTexto
+            })
+        })
+        .then(res => res.json())
+        .then(function ver(info) {
+            console.log("sucess", info)
+
+        })
+        .catch(error => console.error("error", error))
 
 }
 
@@ -30,11 +61,9 @@ function eliminarDatos() {
     let brn = btnBorrar.parentElement.parentElement.children;
     for (let i = 1; i <= brn.length; i++) {
         let revisa = i;
-        let eliminar = brn[i].remove();
+
         console.log(revisa)
     }
-
-
 }
 
 tinymce.init({
