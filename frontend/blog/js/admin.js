@@ -10,10 +10,10 @@ function enviarDatos() {
     /*localstorage*/
     let verLocal = localStorage.getItem("Data")
     let mostrar = JSON.parse(verLocal)
-    console.log(mostrar)
+
     let id = mostrar[0]._id;
-    console.log(id)
-        /*envio de datos*/
+
+    /*envio de datos*/
     let campoTexto = document.querySelector("#mytextarea").value;
 
     let div = document.createElement("div")
@@ -33,7 +33,7 @@ function enviarDatos() {
     h2.innerHTML += campoTexto
 
     let titulo = document.querySelector("#titulo").textContent;
-    console.log(titulo)
+
 
     let url = "https://bloggea.herokuapp.com/post/createPost/"
     fetch(url + id, {
@@ -59,10 +59,12 @@ function eliminarDatos() {
     let btnBorrar = document.querySelector("#borrar-dato")
 
     let brn = btnBorrar.parentElement.parentElement.children;
+    console.log(brn)
     for (let i = 1; i <= brn.length; i++) {
-        let revisa = i;
+        let revisa = brn[i];
+        revisa.remove();
 
-        console.log(revisa)
+
     }
 }
 

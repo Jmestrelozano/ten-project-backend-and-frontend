@@ -8,7 +8,7 @@ document.addEventListener("submit", function(e) {
         username: usuario,
         password: contraseña,
     }
-    console.log(dato)
+
 
     fetch('https://bloggea.herokuapp.com/user/login', {
             method: 'POST',
@@ -44,10 +44,7 @@ let arrayData = [];
 
 function guardarArray(info) {
 
-
     arrayData.push(info.data)
-    console.log(arrayData)
-
     guardarLocalStorage(arrayData);
 }
 
